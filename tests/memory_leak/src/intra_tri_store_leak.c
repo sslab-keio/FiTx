@@ -14,5 +14,5 @@ char* allocate(struct tmp* tmp) {
 int main() {
   struct tmp tmp;
   allocate(&tmp);
-  return 0;
+  return 0; // BUG: Memory leak of tmp->name here
 }

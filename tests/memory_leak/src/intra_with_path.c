@@ -15,5 +15,5 @@ int main() {
   }
   /* free(some_value); */
 err:
-  return 0;
+  return 0; // BUG: memory leak of `some_value ` here
 }

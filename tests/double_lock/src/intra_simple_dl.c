@@ -13,7 +13,7 @@ int main() {
   struct spin_lock* lock = (struct spin_lock*)malloc(sizeof(struct spin_lock));
 
   spin_lock(lock);
-  spin_lock(lock);
+  spin_lock(lock); // BUG: A double lock here
 
   return 0;
 }

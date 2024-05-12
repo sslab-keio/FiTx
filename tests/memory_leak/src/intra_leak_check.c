@@ -14,5 +14,5 @@ int allocate_something(struct test* test) {
 
 int main() {
   int *some_value = (int*)malloc(10);
-  return 0;
+  return 0; // BUG: memory leak of |some_value| here
 }

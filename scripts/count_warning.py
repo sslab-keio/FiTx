@@ -16,5 +16,5 @@ def count_warning(logfile):
     print(sum(warnings.values()))
 
 
-def main():
+if __name__ == "__main__":
     count_warning()

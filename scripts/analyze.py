@@ -3,7 +3,6 @@ import multiprocessing
 import os
 import subprocess
 import time
-import typing
 from pathlib import Path
 
 import click

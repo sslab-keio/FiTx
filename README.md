@@ -4,6 +4,11 @@ This repository contains the artifacts for USENIX ATC 2024 Paper:
 
 > Keita Suzuki, Kenta Ishiguro, Kenji Kono, "Balancing Analysis Time and Bug Detection: Daily Development-friendly Bug Detection in Linux", In 2024 USENIX Annual Technical Conference (to appear), 2024
 
+FiTx is a framework to generate bug detection checkers for "Finger traceable
+bugs". It aims to explores an approach that balances the trade-off of bug
+detection capabilities and short analysis time by combining the computationally
+less-complex analysis techniques.
+
 ## Prerequisites
 - A Linux machine (Ubuntu 20.04 recommended)
 - Network access
@@ -182,7 +187,7 @@ docker exec linux_bug_detection_framework_llvm_1 make CC=clang HOSTCC=clang -j4 
 ## Running FiTx on Linux
 To run FiTx on Linux, run the following command:
 ```
-docker exec [ContaierName HERE] python3 /FiTx/scripts/analyze.py linux
+docker exec [ContainerNameHERE] python3 /FiTx/scripts/analyze.py linux
 ```
 This will run the analysis on the downloaded Linux kernel. Please make sure that
 the Linux kernel builds are clean (i.e. run `make clean`) before starting this
@@ -190,14 +195,19 @@ script. By default, the logs will be stored inside `/tmp/log/[datetime_of_analys
 
 ## Reproducing the main contribution of the paper
 
-The main contribution of our paper is as follows:
+The main results provided in the paper is as follows:
 
-- XXX
+1. Number of warnings: The number of warnings generated are small
+2. Analysis time: The analysis time is not prolonged.
+3. Bug Detection Capabilities: FiTx was able to find 13 confirmed bugs.
 
-### 1. Bugs detection with FiTx
+We will provide a method to reproduce these key results.
+
+### 1. Number of warnings
 TODO
 
-### 2. Measuring analysis time of each source file
+### 2. Bugs detection with FiTx
 TODO
 
-### 3. TODO
+### 3. Measuring analysis time of each source file
+TODO

@@ -83,6 +83,10 @@ docker-compose up --build -d
 This will install the relevant packages, build FiTx, and download Linux kernel
 with the version used in the experiments within the container.
 
+By default, docker-compose will set the container name as `FiTx`.
+If you decide to change the container name, be sure to replace container name
+to the one you specified throughout the examples.
+
 ### Manual instructions
 If you need to manually build your own enviornment to use FiTx, please conduct
 the following: 
@@ -133,11 +137,11 @@ Run the following command to run FiTx on a test source code. By default, tests
 are mounted to `/tmp/tests` within the container.
 
 ```
-# Script template
-docker exec [ContaierName HERE] python3 /FiTx/scripts/analyze.py tests PATH_TO_TEST
+# Script template. By default, container name is FiTx.
+docker exec FiTx python3 /FiTx/scripts/analyze.py test PATH_TO_TESTjkjkjkjkjkjkjk
 
 # Example of running double free tests
-docker exec [ContaierName HERE] python3 /FiTx/scripts/analyze.py tests /tmp/tests/double_free
+docker exec FiTx python3 /FiTx/scripts/analyze.py test /tmp/tests/double_free
 ```
 The script will deal with identifying the source files within each directory,
 running analysis on them, and printing the analysis log as output if there are
@@ -178,7 +182,7 @@ the container:
 > and will take a long time to complete
 
 ```
-docker exec linux_bug_detection_framework_llvm_1 make CC=clang HOSTCC=clang -j4 LLVM_IAS=0 -C [PATH_TO_LINUX: default is `/linux`]
+docker exec FiTx make CC=clang HOSTCC=clang -j4 LLVM_IAS=0 -C [PATH_TO_LINUX: default is `/linux`]
 ```
 
 > [!NOTE]
@@ -187,7 +191,7 @@ docker exec linux_bug_detection_framework_llvm_1 make CC=clang HOSTCC=clang -j4 
 ## Running FiTx on Linux
 To run FiTx on Linux, run the following command:
 ```
-docker exec [ContainerNameHERE] python3 /FiTx/scripts/analyze.py linux
+docker exec FiTx python3 /FiTx/scripts/analyze.py linux
 ```
 This will run the analysis on the downloaded Linux kernel. Please make sure that
 the Linux kernel builds are clean (i.e. run `make clean`) before starting this
@@ -197,17 +201,30 @@ script. By default, the logs will be stored inside `/tmp/log/[datetime_of_analys
 
 The main results provided in the paper is as follows:
 
-1. Number of warnings: The number of warnings generated are small
+1. Number of warnings: The number of warnings generated are small.
+    - As shown in Section 6.1.2 (Table 6(b)), our analysis only generates few
+    warnings per source file. 99.9% of the source files only generated at most
+    3 warnings per file.
+    - In total, our analysis generated 113 warnings (Table 8).
 2. Analysis time: The analysis time is not prolonged.
+    - FiTx focuses on achieving short analysis time while still finding as
+    much bug as possible. As mentioned in Section 6.1.2 (Table 6(a)), 99%ile
+    of the source file required less than 0.99 seconds to complete the analysis.
 3. Bug Detection Capabilities: FiTx was able to find 13 confirmed bugs.
+    - Our analysis was able to find 13 confirmed bugs in Linux kernel. Table 10
+    in Section 6.2 shows these results.
 
-We will provide a method to reproduce these key results.
+The rest of this section will provide a method to reproduce these key results.
 
 ### 1. Number of warnings
+To retrive the number of warnings, follow the following steps:
+1. run the analysis as shown in [this](#running-fitx-on-linux) section.
+2. Run `/FiTx/scripts/count_warning.py`. This script will count the warnings
+in the generated log file, and show the results.
+3. Alternatively, you could manually count the warning in the log file.
+
+### 2. Measuring analysis time of each source file
 TODO
 
-### 2. Bugs detection with FiTx
-TODO
-
-### 3. Measuring analysis time of each source file
+### 3. Bugs detection with FiTx
 TODO

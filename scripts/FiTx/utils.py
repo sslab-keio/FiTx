@@ -56,7 +56,7 @@ def make_linux_build_command(target, job, compiler_flags=[], make_flags=[]):
 
     BASE_LINUX_MAKE_COMMAND = [
         'make',
-        '-k',
+        # '-k',
         '-C',
         target,
         f"-j{job}",

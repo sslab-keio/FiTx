@@ -2,6 +2,7 @@ version: '3'
 
 services:
   llvm:
+    container_name: FiTx
     tty: true
     build:
       dockerfile: Dockerfile

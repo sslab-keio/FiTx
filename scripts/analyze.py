@@ -8,6 +8,7 @@ from pathlib import Path
 import click
 
 from FiTx import utils
+from FiTx.constants import FITX_ROOT, LINUX_ROOT, LOG_DIR, BUILD_DIR, DETECTOR_PATH
 
 ### CONSTANT VARIABLES ###
 FITX_ROOT     = os.environ.get("FITX_ROOT", "/FiTx")

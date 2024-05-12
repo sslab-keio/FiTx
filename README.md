@@ -115,6 +115,9 @@ Clang [Source File] -g -O0 -Xclang -load -XClang [PATH_TO_DETECTOR]
 Clang -g -Xclang -load -XClang FiTx/build/detector/all_detector/libAllDetectorMod.so example.c 
 ```
 
+If the checker finds a bug, it will generate a log to stderr. Otherwise, the
+compilation should complete as it usually does without the checkers.
+
 Please use the script `scripts/analyze.py` as it will handle adding the arguments
 to Clang automatically and run the all_detector. The rest of the document will
 assume you are using this script.

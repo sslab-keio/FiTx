@@ -1,0 +1,12 @@
+add_subdirectory(df_detector)
+add_subdirectory(ubi_detector)
+add_subdirectory(uaf_detector)
+add_subdirectory(nullptr_detector)
+add_subdirectory(leak_detector)
+add_subdirectory(double_lock_detector)
+add_subdirectory(double_unlock_detector)
+add_subdirectory(ref_uncount_detector)
+add_subdirectory(ref_count_detector)
+add_subdirectory(all_detector)
+
+add_subdirectory(two_detector)

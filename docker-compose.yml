@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  llvm:
+    tty: true
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        - project_path=${FITX_ROOT}
+        - linux_path=${LINUX_ROOT}

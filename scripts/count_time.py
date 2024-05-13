@@ -8,7 +8,7 @@ def to_int(word: str):
         return 0
 
 @click.command()
-@click.argument("logfile", type=click.File("r"))
+@click.argument("logfile", type=click.Path("r"))
 def count_time(logfile):
     times = []
     with open(logfile, "r") as f:

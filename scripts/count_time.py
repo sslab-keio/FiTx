@@ -24,9 +24,9 @@ def count_time(logfile):
     ninety_percentile = np.percentile(time_np, 90)
     ninetynine_percentile = np.percentile(time_np, 99)
 
-    print(f"50%ile: {fifty_percentile}")
-    print(f"90%ile: {ninety_percentile}")
-    print(f"99%ile: {ninetynine_percentile}")
+    print(f"50%ile: {fifty_percentile} ms")
+    print(f"90%ile: {ninety_percentile} ms")
+    print(f"99%ile: {ninetynine_percentile} ms")
 
 if __name__ == "__main__":
     count_time()

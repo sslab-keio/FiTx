@@ -284,14 +284,20 @@ in the generated log file, and show the results.
 
 #### 2. Measuring analysis time of each source file
 To retrive the analsys time, conduct the following:
-1. run the analysis with `--measure` flag. 
+1. run the analysis with `--measure` flag. The script will generate a different
+log file named `/tmp/log/{datatime}_measure.log`. This log file keeps track of all
+output related to elapsed time in milliseconds.
 
 ```
 docker exec FiTx python3 /FiTx/scripts/analyze.py linux --measure
 ```
 
 2. Run `/FiTx/scripts/count_time.py`. This script will collect the measured
-analysis time, and print the 50 Percentile value and 90 Percentile value.
+analysis time, and print the 50 Percentile value and 90 Percentile value in ms.
+```
+docker exec FiTx python3 /FiTx/scripts/count_time.py [MEASURE_LOG_FILE]
+```
+
 3. Alternatively, you could manually count the analysis time in the log file.
 
 
@@ -306,8 +312,7 @@ This will allow to analyze a single target in the Linux Makefile.
 For example, if you want to analyze `drivers/platform/chrome/chromeos_laptop.c`,
 run the following command:
 ```
-docker exec FiTx python3 /FiTx/scripts/analyze.py linux --file /linux/d
-rivers/platform/chrome/chromeos_laptop.o
+docker exec FiTx python3 /FiTx/scripts/analyze.py linux --file /linux/drivers/platform/chrome/chromeos_laptop.o
 ```
 
 Note that the file will be the target of Makefile in Linux, and not the exact

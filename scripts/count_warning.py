@@ -1,7 +1,7 @@
 import click
 
 @click.command()
-@click.argument("logfile", type=click.File("r"))
+@click.argument("logfile", type=click.Path("r"))
 def count_warning(logfile):
     warnings = {}
     with open(logfile, "r") as f:

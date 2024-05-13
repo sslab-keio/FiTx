@@ -39,7 +39,7 @@ def linux(target, file, measure):
         if measure:
             compiler_flags += ["-mllvm", "-measure"]
             # additional_args.append("KCFLAGS+=-ftime-report -mllvm -measure")
-            subprocess.run(['git', 'stash', 'apply', 'stash@{0}'], cwd=target)
+            # subprocess.run(['git', 'stash', 'apply', 'stash@{0}'], cwd=target)
 
         if file:
             target_file = os.path.join(target, file)
@@ -59,14 +59,22 @@ def linux(target, file, measure):
         f.write(result.stderr.decode('utf-8'))
 
         # make sure to cleanup the tree before exiting
-        if measure:
-            subprocess.run(['git', 'restore', '.'], cwd=target)
+        # if measure:
+        #     subprocess.run(['git', 'restore', '.'], cwd=target)
 
     with open(log, 'w+') as f:
         result = subprocess.run(['awk', "$0 ~/ERROR/ || $0 ~/LOG/", tmplog],
                                 stdout=subprocess.PIPE)
         result = utils.remove_redundant_log(result.stdout.decode('utf-8'))
         f.write(result)
+
+    if measure:
+        measure_log = os.path.join(LOG_DIR, f"{current}_time.log")
+        with open(measure_log, 'w+') as f:
+            subprocess.run(['awk', "$0 ~/Elapsed/", tmplog], stdout=f)
+            # f.write(result.stdout.decode('utf-8'))
+        print(f"Logged time measure to {measure_log}")
+
 
     print(f"Done running command (Runtime - {end - start} sec): {command}")
     print(f"Logged to file {log}")

@@ -1,19 +1,32 @@
 import click
+import numpy as np
+
+def to_int(word: str):
+    try:
+        return int(word)
+    except:
+        return 0
 
 @click.command()
 @click.argument("logfile", type=click.File("r"))
 def count_time(logfile):
-    warnings = {}
+    times = []
     with open(logfile, "r") as f:
         for line in f.readlines():
-            if all(keyword in line for keyword in ['ERROR', '---']):
-                warn_name = line.split('---')[1]
-                if warn_name not in warnings:
-                    warnings[warn_name] = 0
-                warnings[warn_name] += 1
+            words = line.split(' ')
+            if len(words) == 0:
+                continue
+            time = to_int(words[-1])
+            if time > 0:
+                times.append(time)
+    time_np = np.array(times)
+    fifty_percentile = np.percentile(time_np, 50)
+    ninety_percentile = np.percentile(time_np, 90)
+    ninetynine_percentile = np.percentile(time_np, 99)
 
-    print(warnings)
-    print(sum(warnings.values()))
+    print(f"50%ile: {fifty_percentile}")
+    print(f"90%ile: {ninety_percentile}")
+    print(f"99%ile: {ninetynine_percentile}")
 
 if __name__ == "__main__":
     count_time()

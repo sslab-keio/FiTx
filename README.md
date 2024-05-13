@@ -285,7 +285,7 @@ in the generated log file, and show the results.
 #### 2. Measuring analysis time of each source file
 To retrive the analsys time, conduct the following:
 1. run the analysis with `--measure` flag. The script will generate a different
-log file named `/tmp/log/{datatime}_measure.log`. This log file keeps track of all
+log file named `/tmp/log/{datatime}_time.log`. This log file keeps track of all
 output related to elapsed time in milliseconds.
 
 ```

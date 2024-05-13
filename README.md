@@ -282,8 +282,37 @@ To retrive the number of warnings, follow the following steps:
 in the generated log file, and show the results.
 3. Alternatively, you could manually count the warning in the log file.
 
-<!-- #### 2. Measuring analysis time of each source file -->
-<!-- TODO -->
+#### 2. Measuring analysis time of each source file
+To retrive the analsys time, conduct the following:
+1. run the analysis with `--measure` flag. 
 
-<!-- #### 3. Bugs detection with FiTx -->
-<!-- TODO -->
+```
+docker exec FiTx python3 /FiTx/scripts/analyze.py linux --measure
+```
+
+2. Run `/FiTx/scripts/count_time.py`. This script will collect the measured
+analysis time, and print the 50 Percentile value and 90 Percentile value.
+3. Alternatively, you could manually count the analysis time in the log file.
+
+
+#### 3. Bugs detection with FiTx
+Our analysis found 13 new confirmed bugs in the Linux kernel.
+Table 10 in Section 6.2 shows the results of this analysis. To reproduce
+this result with the analysis time, conduct the following:
+
+1. For each bug detected source file, run the analysis script with `--file` option.
+This will allow to analyze a single target in the Linux Makefile.
+
+For example, if you want to analyze `drivers/platform/chrome/chromeos_laptop.c`,
+run the following command:
+```
+docker exec FiTx python3 /FiTx/scripts/analyze.py linux --file /linux/d
+rivers/platform/chrome/chromeos_laptop.o
+```
+
+Note that the file will be the target of Makefile in Linux, and not the exact
+source file. Hence, in the example above, the target will be the object file
+(`chromeos_laptop.o`) and not the source file.
+
+2. With the generated logs, check each warning manually and determine if they
+point to a bug.

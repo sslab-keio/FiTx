@@ -312,7 +312,7 @@ This will allow to analyze a single target in the Linux Makefile.
 For example, if you want to analyze `drivers/platform/chrome/chromeos_laptop.c`,
 run the following command:
 ```
-docker exec FiTx python3 /FiTx/scripts/analyze.py linux --file /linux/drivers/platform/chrome/chromeos_laptop.o
+docker exec FiTx python3 /FiTx/scripts/analyze.py linux --file drivers/platform/chrome/chromeos_laptop.o
 ```
 
 Note that the file will be the target of Makefile in Linux, and not the exact

@@ -6,7 +6,7 @@ RUN apt-get -qq update; \
         gnupg2 wget ca-certificates apt-transport-https \
         autoconf automake cmake dpkg-dev file make patch libc6-dev cmake git \
         fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex \
-        libelf-dev bison python3 python3-pip cpio
+        libelf-dev bison python3 python3-pip cpio python3-dev
 
 # Install LLVM
 RUN echo "deb https://apt.llvm.org/buster llvm-toolchain-buster-10 main" \

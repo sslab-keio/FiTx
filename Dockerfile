@@ -27,6 +27,7 @@ RUN echo "deb https://apt.llvm.org/buster llvm-toolchain-buster-10 main" \
 # Create Util dirs
 WORKDIR /tmp/log
 ADD tests /tmp/tests
+ADD patches /tmp/patches
 
 # Build FiTx
 ARG project_path
@@ -45,8 +46,7 @@ RUN wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.1.tar.gz \
     tar xvf ${linux_tar} && \
     mv linux*/* . && \
     rm ${linux_tar}
-# RUN git clone https://github.com/torvalds/linux.git ${linux_path}
-# RUN git checkout v5.15 && \
+RUN cp /tmp/patches/Makefile.build /linux/scripts/Makefile.build
 RUN cp ${project_path}/scripts/config .config && \
     make CC=clang HOSTCC=clang olddefconfig
 

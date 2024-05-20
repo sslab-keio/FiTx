@@ -46,6 +46,21 @@ def get_files(target: Path) -> typing.List[Path]:
     return target_files
 
 
+def get_log_files(target: Path) -> typing.List[Path]:
+    target_files = []
+
+    if target.is_file():
+        target_files.append(target)
+
+    for dirpath, _, filenames in os.walk(target):
+        target_files += [
+            Path(dirpath) / Path(file) for file in filenames
+            if Path(file).suffix == '.log'
+        ]
+
+    return target_files
+
+
 def compilation_flags(additional_flags=[]):
     FLAGS = ['-g', '-fno-inline-functions', '-fno-builtin-bcmp']
     return FLAGS + additional_flags

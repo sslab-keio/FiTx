@@ -413,9 +413,10 @@ ArgValueStates::getValueStateForArg(int64_t index) const {
     for (auto& transition_log : value.second.TransitionPerState()) {
       if (!transition_log.second.isDummy() &&
           transition_log.second.ReducedTransition().Source() !=
-              transition_log.second.ReducedTransition().Target())
+          transition_log.second.ReducedTransition().Target()) {
         new_map[value.first].push_back(
             transition_log.second.ReducedTransition());
+      }
     }
   }
 

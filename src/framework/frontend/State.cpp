@@ -93,6 +93,17 @@ bool State::operator==(const StateArgs& args) const {
   return name_ == args.name_ && type_ == args.type_;
 }
 
+State& State::operator=(const State& state) {
+  ID_ = state.ID_;
+  name_ = state.name_;
+  type_ = state.type_;
+  method_ = state.method_;
+  timing_ = state.timing_;
+  trigger_constraint_ = state.trigger_constraint_;
+  early_notification_ = state.early_notification_;
+  return *this;
+}
+
 StateManager::StateManager()
     : early_state_transition_(false),
       init_state_(nullptr),
@@ -219,22 +230,19 @@ llvm::raw_ostream& operator<<(llvm::raw_ostream& ostream,
 
 TransitionLogs::TransitionLogs()
     : transition_logs_(),
-      warned_(false),
-      least_significant_source_(nullptr),
-      most_significant_target_(nullptr) {}
+      warned_(false) {}
 
 TransitionLogs::TransitionLogs(const TransitionLogs& logs)
-    : transition_logs_(logs.transition_logs_),
-      least_significant_source_(
-          const_cast<State*>(&logs.LeastSignificantSource())),
-      most_significant_target_(
-          const_cast<State*>(&logs.MostSignificantTarget())) {}
+  : transition_logs_(logs.transition_logs_) {
+    least_significant_source_ = logs.least_significant_source_;
+    most_significant_target_ = logs.most_significant_target_;
+  }
 
 TransitionLogs::TransitionLogs(
     Transition transition, std::shared_ptr<framework::Instruction> instruction)
     : transition_logs_{Log{transition, instruction}} {
-  least_significant_source_ = &transition.Source();
-  most_significant_target_ = &transition.Target();
+  least_significant_source_ = transition.Source();
+  most_significant_target_ = transition.Target();
 }
 
 const State& TransitionLogs::CurrentState() const {
@@ -250,11 +258,11 @@ void TransitionLogs::addTransition(
 
   if (!least_significant_source_ ||
       transition.Source() < *least_significant_source_)
-    least_significant_source_ = &transition.Source();
+    least_significant_source_ = transition.Source();
 
   if (!most_significant_target_ ||
       *most_significant_target_ < transition.Target())
-    most_significant_target_ = &transition.Target();
+    most_significant_target_ = transition.Target();
 }
 
 void TransitionLogs::setWarned() { warned_ = true; }

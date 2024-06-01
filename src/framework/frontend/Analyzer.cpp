@@ -452,7 +452,8 @@ void Analyzer::generateError(
     for (auto value : bb_info_->getValueTransitionStates(state)) {
       if (!values.empty() && values.find(value.first) == values.end()) continue;
       if (value.second->CurrentState() != state) continue;
-      if (!value.second->ReducedTransition().Source().isInitState()) continue;
+      if (!value.second->LeastSignificantSource().isInitState()) continue;
+      /* if (!value.second->ReducedTransition().Source().isInitState()) continue; */
 
       if (state.getTriggerConstraint() == TriggerConstraint::NON_RETURN &&
           value.first ==

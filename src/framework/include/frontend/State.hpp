@@ -87,6 +87,7 @@ class State {
   bool operator!=(const State& state) const;
   bool operator==(const std::string& name) const;
   bool operator==(const StateArgs& args) const;
+  State& operator=(const State& state);
 
   std::string Name() const { return name_; };
 
@@ -203,8 +204,8 @@ class TransitionLogs {
   };
 
   std::vector<Log> transition_logs_;
-  const State* least_significant_source_;
-  const State* most_significant_target_;
+  std::optional<State> least_significant_source_;
+  std::optional<State> most_significant_target_;
   bool warned_;
 };
 

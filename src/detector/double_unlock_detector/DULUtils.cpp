@@ -32,6 +32,9 @@ void defineStates(framework::StateManager &manager) {
       framework::StateArgs("double unlocked", framework::StateType::BUG);
   framework::State &double_unlock = manager.createState(dl_args);
 
+  auto null_args = framework::StateArgs("null");
+  framework::State &null = manager.createState(null_args);
+
   auto lock_rule = framework::FunctionArgTransitionRule(lock_funcs_w_try);
   auto store_any_rule = framework::StoreValueTransitionRule(
       framework::StoreValueTransitionRule::ANY);
@@ -43,7 +46,7 @@ void defineStates(framework::StateManager &manager) {
   manager.addTransition(unlock, double_unlock, unlock_rule);
 
   manager.addTransition(unlock, lock, lock_rule);
-  manager.addTransition(unlock, init, store_any_rule);
+  manager.addTransition(unlock, null, store_any_rule);
 
   manager.enableStatefulConstraint(std::make_shared<LockInUnlockConstraint>());
 }

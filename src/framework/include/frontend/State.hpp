@@ -190,6 +190,8 @@ class TransitionLogs {
     return *most_significant_target_;
   };
   Transition ReducedTransition() const;
+  
+  bool containsNegativeLogs() const;
 
   bool isDummy() const { return transition_logs_.empty(); };
 

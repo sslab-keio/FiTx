@@ -453,6 +453,7 @@ void Analyzer::generateError(
       if (!values.empty() && values.find(value.first) == values.end()) continue;
       if (value.second->CurrentState() != state) continue;
       if (!value.second->LeastSignificantSource().isInitState()) continue;
+      if (value.second->containsNegativeLogs()) continue;
       /* if (!value.second->ReducedTransition().Source().isInitState()) continue; */
 
       if (state.getTriggerConstraint() == TriggerConstraint::NON_RETURN &&

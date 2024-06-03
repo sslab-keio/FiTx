@@ -288,6 +288,16 @@ Transition TransitionLogs::ReducedTransition() const {
                     transition_logs_.back().transition.Target());
 }
 
+bool TransitionLogs::containsNegativeLogs() const {
+  int line_num = -1;
+  for (auto& log: transition_logs_) {
+    if (log.instruction->Line() < line_num)
+      return true;
+    line_num = log.instruction->Line();
+  }
+  return false;
+}
+
 bool TransitionLogs::operator==(const TransitionLogs& logs) const {
   return transition_logs_ == logs.transition_logs_;
 }

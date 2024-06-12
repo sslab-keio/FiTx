@@ -282,6 +282,35 @@ To retrive the number of warnings, follow the following steps:
 in the generated log file, and show the results.
 3. Alternatively, you could manually count the warning in the log file.
 
+##### Data diffference paper
+
+During Artifact Evaluation, we have found a minor memory bug in the original
+code of FiTx. This bug has already been fixed. After re-evaluating with the
+fixed version, there are following changes from the paper:
+
+1. The total number of warnings will change to 121, from the prior 113 in the paper
+2. The number of true positive does not change with this result
+3. The 8 newly generated warnings were false positives, making the false
+positive rate slightly higher to 61.2% from the original 58.4%. 
+
+The result should look as follows:
+
+|  | Warnings | TP |
+| --- | --- | --- |
+| Double Free | 41 | 21 |
+| Double Lock | 16 | 7 |
+| Double unlock | 13 | 5 |
+| Memory leak | 15 | 3 |
+| use after free | 31 | 9 |
+| reference count | 5 | 2 |
+| Total | 121 | 47 |
+
+Other than the number of warnings, no change is made to other results, and
+our claim in the paper is also not affected, thus will not be changed.
+
+Please be noted that the data retrieved at the timing of writing the paper and
+conducted experiments in our environment is still the same as the paper.
+
 #### 2. Measuring analysis time of each source file
 To retrive the analsys time, conduct the following:
 1. run the analysis with `--measure` flag. The script will generate a different

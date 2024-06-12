@@ -182,6 +182,7 @@ class TransitionLogs {
 
   void generateLog(llvm::raw_ostream& stream) const;
   void logicalTerminate(std::shared_ptr<framework::Instruction> instruction);
+  void logicalTerminate();
 
   const State& LeastSignificantSource() const {
     return *least_significant_source_;

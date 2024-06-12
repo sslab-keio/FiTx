@@ -283,16 +283,25 @@ void TransitionLogs::logicalTerminate(
   addTransition(null_transition, instruction);
 }
 
+void TransitionLogs::logicalTerminate() {
+  if (transition_logs_.empty())
+    return;
+  auto null_transition = Transition(transition_logs_.back().transition.Target(),
+                                    NullState::GetInstance());
+  addTransition(null_transition, transition_logs_.back().instruction);
+}
+
 Transition TransitionLogs::ReducedTransition() const {
   return Transition(transition_logs_.front().transition.Source(),
                     transition_logs_.back().transition.Target());
 }
 
 bool TransitionLogs::containsNegativeLogs() const {
-  int line_num = -1;
+  std:int64_t line_num = -100;
   for (auto& log: transition_logs_) {
-    if (log.instruction->Line() < line_num)
+    if (static_cast<std::int64_t>(log.instruction->Line()) < line_num) {
       return true;
+    }
     line_num = log.instruction->Line();
   }
   return false;
